@@ -63,7 +63,7 @@
             <div class="result-content">
                 <div class="short-wrap">
                     <a href="addClass.jsp"><i class="icon-font">&#xe001;</i>新增课程</a>
-                    <a href="addDirection.jsp"><i class="icon-font">&#xe005;</i>新增方向</a>
+                    <a href="addDirection.jsp?type=1"><i class="icon-font">&#xe005;</i>新增方向</a>
                     <a href="addSort.jsp"><i class="icon-font">&#xe048;</i>新增课程分类</a>
                     <a href="addZhangJie.jsp"><i class="icon-font">&#xe041;</i>新增课程章节</a>
                 </div>

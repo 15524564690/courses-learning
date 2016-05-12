@@ -13,65 +13,14 @@
     <script src="${basePath }js/jquery.min.js"></script>
     <script>
         $(function () {
-            /*
-             $.ajax({
-             type: "GET",
-             url: "/action/clazz",
-             dataType: "json",
-             success: function (classList) {
-             //  console.log(JSON.stringify(categoryList));
-             for (var i = 0; i < classList.data.length; i++) {
-             $("#classManager").append(
-             "<tr><td class='tc'><input name='id[]' value='"+classList.data[i].id+"' type='checkbox'></td>"+
-             "<td>"+classList.data[i].id+"</td>"+
-             "<td>"+classList.data[i].classname+"</td>"+
-             "<td style='overflow: hidden;width: 200px;height:100px;'>"+classList.data[i].classdes+"</td>"+
-             "<td>"+classList.data[i].createtime+"</td>"+
-             "<td>"+classList.data[i].updatetime+"</td>"+
-             "<td>"+classList.data[i].userid+"</td>"+
-             "<td>"+classList.data[i].categoryid+"</td>"+
-             "<td>"+classList.data[i].directionid+"</td>"+
-             "<td>"+classList.data[i].pictureul+"</td>"+
-             "<td><a class='link-update btn btn-info' href=''>修改</a>"+
-             "<a style='margin-left: 5px' class='link-del btn btn-danger' " +
-             " href='' >删除</a></td></tr>");
-             }
-             },
-             error: function (e) {
-             }
-             });*/
-/*
-            $.ajax({
-                type: "GET",
-                url: "/action/direction",
-                dataType: "json",
-                success: function (directionList) {
-                    //  console.log(JSON.stringify(categoryList));
-                    for (var i = 0; i < directionList.data.length; i++) {
-                        $("#directionShow").append(
-                                "<option value='directionList.data[i].id'>"+directionList.data[i].directionname+"</option>");
-                    }
-                },
-                error: function (e) {
-                }
-            });
-            $.ajax({
-                type: "GET",
-                url: "/action/category",
-                dataType: "json",
-                success: function (categoryList) {
-                    //  console.log(JSON.stringify(categoryList));
-                    for (var i = 0; i < categoryList.data.length; i++) {
-                        $("#categoryShow").append(
-                                "<option value='categoryList.data[i].id'>"+categoryList.data[i].categoryname+"</option>");
-
-                    }
-                },
-                error: function (e) {
-                }
-            });
+            $("#addone").click(function () {
+                $("#addDirection tbody").append(
+                        "<tr><th width='120'></th>"+
+                "<td><input class='common-text required' id='title'"+
+                "name='title' size='50' value='' type='text'></td></tr>");
+            })
         });
-*/
+
 
     </script>
 </head>
@@ -130,57 +79,24 @@
             <div class="result-content">
                 <form action="/jscss/admin/design/add" method="post" id="myform"
                       name="myform" enctype="multipart/form-data">
-                    <table class="insert-tab" width="100%">
+                    <table id="addDirection" class="insert-tab" width="100%">
                         <tbody>
                         <tr>
                             <th width="120"><i class="require-red">*</i>方向：</th>
-                            <td><select name="colId" id="directionShow" class="required">
-                                <option value="">请选择</option>
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <th width="120"><i class="require-red">*</i>分类：</th>
-                            <td><select name="colId" id="categoryShow" class="required">
-                                <option value="">请选择</option>
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <th><i class="require-red">*</i>课程名称：</th>
                             <td><input class="common-text required" id="title"
                                        name="title" size="50" value="" type="text"></td>
                         </tr>
-                        <tr>
-                            <th><i class="require-red">*</i>标题：</th>
-                            <td><input class="common-text required" id="title"
-                                       name="title" size="50" value="" type="text"></td>
-                        </tr>
-                        <tr>
-                            <th>作者：</th>
-                            <td><input class="common-text" name="author" size="50"
-                                       value="admin" type="text"></td>
-                        </tr>
-                        <tr>
-                            <th><i class="require-red">*</i>图片：</th>
-                            <td><input name="smallimg" id="" type="file">
-                                <!--<input type="submit" onclick="submitForm('/jscss/admin/design/upload')" value="上传图片"/>--></td>
-                        </tr>
-                        <tr>
-                            <th>课程描述：</th>
-                            <td><textarea name="discribes" class="common-textarea"
-                                          id="content" cols="5" style="width: 80%;" rows="2"></textarea></td>
-                        </tr>
-                        <tr>
-                            <th>章节：</th>
-                            <td><textarea name="content" class="common-textarea"
-                                          id="content" cols="30" style="width: 98%;" rows="10"></textarea></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><input class="btn btn-primary btn6 mr10" value="提交"
-                                       type="submit"> <input class="btn btn6"
-                                                             onclick="history.go(-1)" value="返回" type="button"></td>
-                        </tr>
+
+
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <th><a id="addone" class="btn btn-warning">添加一条 </a></th>
+                            <td><input style="margin:0 50px" class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
+                                <input class="btn btn-success btn6 mr10" value="提交" type="submit"> </td>
+                        </tr>
+
+                        </tfoot>
                     </table>
                 </form>
             </div>
