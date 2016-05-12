@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bin.myspring.mapper.ClazzMapper">
+    <!-- 定义数据库字段与实体对象的映射关系 -->
+    <resultMap type="com.bin.myspring.entity.Clazz" id="resultClazz">
+        <id property="id" column="id" />
+        <result property="classname" column="classname" />
+        <result property="classdes" column="classdes" />
+        <result property="createtime" column="createtime" />
+        <result property="updatetime" column="updatetime" />
+        <result property="userid" column="userid" />
+        <result property="categoryid" column="categoryid" />
+        <result property="directionid" column="directionid" />
+        <result property="pictureul" column="pictureul" />
+    </resultMap>
+    <!-- 定义参数模型 -->
+    <parameterMap type="com.bin.myspring.entity.Clazz" id="paramCalzz">
+        <parameter property="id" />
+        <parameter property="classname" />
+        <parameter property="classdes" />
+        <parameter property="createtime" />
+        <parameter property="updatetime" />
+        <parameter property="userid" />
+        <parameter property="categoryid" />
+        <parameter property="directionid" />
+        <parameter property="pictureul" />
+    </parameterMap>
+    <!-- 定义要操纵的SQL语句 -->
+    <select id="getClazzList" resultType="list" parameterType="com.bin.myspring.entity.Clazz" resultMap="resultClazz"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        clazz
+    </select>
+    <insert id="createClazz" parameterType="com.bin.myspring.entity.Clazz" >
+        insert into clazz (id,clazzname,classdes,updatetime,createtime,userid,categoryid,directionid,pictureul) values
+        (#{id},#{userid},#{classname},#{classdes},#{createtime},#{updatetime},#{categoryid},#{directionid},#{pictureul})
+    </insert>
+    <update id="updateClazz" parameterType="com.bin.myspring.entity.Clazz">
+        update clazz set id=#{id},classname=#{classname},classdes=#{classdes},createtime=#{createtime},
+        updatetime=#{updatetime},userid=#{userid},categoryid=#{categoryid},directionid=#{directionid},pictureul=#{pictureul}
+    </update>
+    <delete id="deleteClazz" parameterType="com.bin.myspring.entity.Clazz">
+        delete from clazz where id=#{id}
+    </delete>
+</mapper>

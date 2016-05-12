@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bin.myspring.mapper.ChapterMapper">
+    <!-- 定义数据库字段与实体对象的映射关系 -->
+    <resultMap type="com.bin.myspring.entity.Chapter" id="resultChapter">
+        <id property="id" column="id" />
+        <result property="clazzid" column="clazzid" />
+        <result property="num" column="num" />
+        <result property="chaptername" column="chaptername" />
+        <result property="chapterdes" column="chapterdes" />
+
+    </resultMap>
+    <!-- 定义参数模型 -->
+    <parameterMap type="com.bin.myspring.entity.Chapter" id="paramChapter">
+        <parameter property="id" />
+        <parameter property="clazzid" />
+        <parameter property="num" />
+        <parameter property="chaptername" />
+        <parameter property="chapterdes" />
+    </parameterMap>
+    <!-- 定义要操纵的SQL语句 -->
+    <select id="getChapterList" resultType="list" parameterType="com.bin.myspring.entity.Chapter" resultMap="resultChapter"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        chapter
+    </select>
+    <insert id="createChapter" parameterType="com.bin.myspring.entity.Chapter" >
+        insert into chapter (id,clazzid,num,chaptername,chapterdes) values
+         (#{id},#{clazzid},#{num},#{chaptername},#{chapterdes})
+    </insert>
+    <update id="updateChapter" parameterType="com.bin.myspring.entity.Chapter">
+        update chapter set id=#{id},clazzid=#{clazzid},
+        num=#{num},chaptername=#{chaptername},chapterdes=#{chapterdes}
+    </update>
+    <delete id="deleteChapter" parameterType="com.bin.myspring.entity.Chapter">
+        delete from chapter where id=#{id}
+    </delete>
+</mapper>

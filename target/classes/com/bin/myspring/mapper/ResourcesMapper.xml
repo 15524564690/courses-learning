@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bin.myspring.mapper.ResourcesMapper">
+    <!-- 定义数据库字段与实体对象的映射关系 -->
+    <resultMap type="com.bin.myspring.entity.Resources" id="resultResources">
+        <id property="id" column="id" />
+        <result property="titleid" column="titleid" />
+        <result property="url" column="url" />
+
+    </resultMap>
+    <!-- 定义参数模型 -->
+    <parameterMap type="com.bin.myspring.entity.Resources" id="paramResources">
+        <parameter property="id" />
+        <parameter property="titleid" />
+        <parameter property="url" />
+    </parameterMap>
+    <!-- 定义要操纵的SQL语句 -->
+    <select id="getResourcesList" resultType="list" parameterType="com.bin.myspring.entity.Resources" resultMap="resultResources"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        resources
+    </select>
+    <insert id="createResources" parameterType="com.bin.myspring.entity.Resources" >
+        insert into resources (id,titleid,url) values (#{id},#{titleid},#{url})
+    </insert>
+    <update id="updateResources" parameterType="com.bin.myspring.entity.Resources">
+        update resources set id=#{id},titleid=#{titleid},url=#{url}
+    </update>
+    <delete id="deleteResources" parameterType="com.bin.myspring.entity.Resources">
+        delete from resources where id=#{id}
+    </delete>
+</mapper>

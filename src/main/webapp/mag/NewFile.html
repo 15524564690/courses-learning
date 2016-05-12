@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- 效果： http://hovertree.com/texiao/jquery/33/  -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>jQuery实现收起展开功能 - 何问起</title><base target="_blank" />
+<meta charset="utf-8" />
+<style>
+a{color:darkgreen}
+.hovertreeContent{width:300px;text-indent:2em;margin:5px auto;height:60px;overflow:hidden;position:relative;border:1px solid silver;}
+.hewenqiToggle{height:20px;background-color:#f0f0f0;border-top:1px solid silver;position:absolute;bottom:0px;width:100%;}
+.triangle-down-hovertree { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 16px solid #999;position:absolute;right:0px;left:0px;margin:0px auto; top:2px;cursor:pointer;}
+.triangle-up-hovertree { width: 0; height: 0; border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 16px solid #999; position:absolute;right:0px;left:0px;margin:0px auto;top:2px; }
+</style>
+<script src="http://hovertree.com/ziyuan/jquery/jquery-1.12.1.min.js"></script>
+ 
+</head>
+<body>
+<div style="width:730px;margin:0px auto;text-align:center;">
+<h2>jQuery实现收起展开功能</h2>
+<a href="http://hovertree.com/h/bjaf/6sm1esjw.htm">原文</a> <a href="http://hovertree.com">首页</a> <a href="http://hovertree.com/texiao/">特效</a>
+</div>
+<div class="hovertreeContent">
+受到网店的影响，服装店的生意逐渐有所下降，老板找何问起去谈，大概是准备跟上网购潮流，让何问起准备一下，
+要在网上开网店，要为服装店建立网站。
+何问起也没说自己经验不足，只说会积极准备。于是抓紧时间查找资料，学习练习。
+<div class="hewenqiToggle"><span class="triangle-down-hovertree"></span></div>
+</div>
+<script>
+$(".hewenqiToggle").on("click", function () {
+if ($(".hewenqiToggle").css('position') == "absolute") {
+$(".hovertreeContent").height("auto");
+$(".hewenqiToggle").css({ "position": "relative" });
+$(".hewenqiToggle").find("span").removeClass('triangle-down-hovertree').addClass('triangle-up-hovertree');
+}
+else
+{
+$(".hovertreeContent").height("60");
+$(".hewenqiToggle").css({ "position": "absolute" });
+$(".hewenqiToggle").find("span").removeClass('triangle-up-hovertree').addClass('triangle-down-hovertree');
+}
+})
+</script>
+</body>
+</html>

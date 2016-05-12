@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bin.myspring.mapper.CommentsMapper">
+	<!-- 定义数据库字段与实体对象的映射关系 -->
+	<resultMap type="com.bin.myspring.entity.Comments" id="resultComments">
+		<id property="id" column="id" />
+		<result property="userid" column="userid" />
+		<result property="titleid" column="titleid" />
+		<result property="commentid" column="commentid" />
+		<result property="content" column="content" />
+		<result property="createtime" column="createtime" />
+	</resultMap>
+	<!-- 定义参数模型 -->
+	<parameterMap type="com.bin.myspring.entity.Comments" id="paramComments">
+		<parameter property="id" />
+		<parameter property="userid" />
+		<parameter property="titleid" />
+		<parameter property="commentid" />
+		<parameter property="content" />
+		<parameter property="createtime" />
+	</parameterMap>
+
+	<!-- 定义要操纵的SQL语句 -->
+	<select id="getCommentsList" resultType="list" parameterType="com.bin.myspring.entity.Comments" resultMap="resultComments"> <!--resultMap="resultCategory"-->
+		SELECT * FROM
+		comments
+	</select>
+	<insert id="createComments" parameterType="com.bin.myspring.entity.Comments" >
+		insert into comments (id,userid,titleid,commentid,content,createtime) values
+		(#{id},#{userid},#{titleid},#{commentid},#{createtime},#{content}
+	</insert>
+	<update id="updateComments" parameterType="com.bin.myspring.entity.Comments">
+		update comments set id=#{id},userid=#{userid},titleid=#{titleid},commentid=#{commentid},
+		content=#{content},createtime=#{createtime}
+	</update>
+	<delete id="deleteComments" parameterType="com.bin.myspring.entity.Comments">
+		delete from comments where id=#{id}
+	</delete>
+</mapper>

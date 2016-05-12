@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bin.myspring.mapper.UserMapper">
+	<!-- 定义数据库字段与实体对象的映射关系 -->
+	<resultMap type="com.bin.myspring.entity.User" id="resultUser">
+		<id property="uuid" column="uuid" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="nickname" column="nickname" />
+		<result property="role" column="role" />
+		<result property="createtime" column="createtime" />
+		<result property="tel" column="tel" />
+		<result property="email" column="email" />
+	</resultMap>
+	<!-- 定义参数模型 -->
+	<parameterMap type="com.bin.myspring.entity.User" id="paramUser">
+		<parameter property="uuid" />
+		<parameter property="username" />
+		<parameter property="password" />
+		<parameter property="nickname" />
+		<parameter property="role" />
+		<parameter property="createtime" />
+		<parameter property="tel" />
+		<parameter property="email" />
+	</parameterMap>
+	<!-- 定义要操纵的SQL语句 -->
+	<select id="getUserList" resultType="list" parameterType="com.bin.myspring.entity.User" resultMap="resultUser"> <!--resultMap="resultCategory"-->
+		SELECT * FROM
+		user
+	</select>
+	<insert id="createUser" parameterType="com.bin.myspring.entity.User" >
+		insert into user (uuid,username,password,nickname,role,createtime,tel,email) values
+		(#{uuid},#{username},#{password},#{nickname},#{role},#{createtime},#{tel},#{email})
+	</insert>
+	<update id="updateUser" parameterType="com.bin.myspring.entity.User">
+		update user set uuid=#{uuid},username=#{username},password=#{password},nickname=#{nickname},
+		role=#{role},createtime=#{createtime},tel=#{tel},email=#{email}
+	</update>
+	<delete id="deleteUser" parameterType="com.bin.myspring.entity.User">
+		delete from user where id=#{id}
+	</delete>
+	<select id="getUserByName" resultType="list" parameterType="com.bin.myspring.entity.User" resultMap="resultUser">
+		SELECT * FROM
+		user where username=#{username}
+	</select>
+	<!--<select id="findById" resultType="list" resultMap="resultUser">
+		SELECT
+		userName FROM
+		user where id=#{uId}
+	</select>
+ 	<insert id="insert" parameterType="User" useGeneratedKeys="true"
+		keyProperty="id">
+		insert into user(userName,passWord,passWord1,name,createTime,identity,identityCard)
+		values(#{userName},#{passWord},#{passWord1name},#{name},#{createTime},0,#{identityCard})
+	</insert>
+	<update id="update" parameterType="User">
+		update user set userName=#{userName},passWord=#{passWord},passWord1=#{passWord1},
+		name=#{name},createTime=#{createTime},identity=#{identity},identityCard=#{identityCard}
+		where id=#{uId}
+	</update>
+	 <select id="selectUsersByName" parameterType="string" resultMap="userResultMap">
+        select * from user where user.userName = #{userName}
+    </select>
+        <delete id="deleteUser" parameterType="int">
+        delete from user where id =#{uId}
+    </delete>-->
+</mapper>
