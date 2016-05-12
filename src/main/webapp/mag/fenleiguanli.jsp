@@ -46,7 +46,7 @@
 				</h1>
 				<ul class="navbar-list clearfix">
 					<li><a class="on" href="manager.jsp">管理平台</a></li>
-					<li><a href="http://localhost:8080/myspring/" target="_blank">
+					<li><a href="http://localhost:8080" target="_blank">
 							课程学习网站首页</a></li>
 				</ul>
 			</div>
@@ -65,7 +65,7 @@
 			</div>
 			<div class="sidebar-content">
 				<ul class="sidebar-list">
-					<li><a href="#"><i class="icon-font">&#xe003;</i>常用操作</a>
+					<li><a href="javascript:void(0)"><i class="icon-font">&#xe003;</i>常用操作</a>
 						<ul class="sub-menu">
 							<li><a href="kechengguanli.jsp"><i class="icon-font">&#xe008;</i>课程管理</a></li>
 							<li><a href="fangxiangguanli.jsp"><i class="icon-font">&#xe005;</i>方向管理</a></li>
