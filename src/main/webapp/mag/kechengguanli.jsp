@@ -7,6 +7,30 @@
 <head>
 <meta charset="UTF-8">
 <title>后台管理</title>
+	<style>
+		.class-desc {
+			width: 100px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+		.class-desc:hover+span {
+			display: block;
+		}
+
+		.class-desc+span {
+			display: none;
+			position: absolute;
+			left: 5px;
+			top: 55px;
+			width: 400px;
+			z-index: 1000;
+			background-color: #ffffff;
+			border: 1px solid #e0e0e0;
+			border-radius: 4px;
+		}
+	</style>
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
@@ -25,9 +49,11 @@
 								"<tr><td class='tc'><input name='id[]' value='"+classList.data[i].id+"' type='checkbox'></td>"+
 								"<td>"+classList.data[i].id+"</td>"+
 								"<td>"+classList.data[i].classname+"</td>"+
-								"<td style='overflow: hidden;width: 200px;height:100px;'>"+classList.data[i].classdes+"</td>"+
+								"<td style=\"position: relative;\"><div class=\"class-desc\">"+
+									classList.data[i].classdes+
+								"</div><span>"+classList.data[i].classdes+"</span></td>"+
 								"<td>"+classList.data[i].createtime+"</td>"+
-								"<td>"+classList.data[i].updatetime+"</td>"+
+//								"<td>"+classList.data[i].updatetime+"</td>"+
 								"<td>"+classList.data[i].userid+"</td>"+
 								"<td>"+classList.data[i].categoryid+"</td>"+
 								"<td>"+classList.data[i].directionid+"</td>"+
@@ -165,16 +191,16 @@
 						<table id="classManager" class="result-tab" width="100%" table-layout="fixed">
 							<tr>
 								<th class="tc" width="5%"></th>
-								<th>ID</th>
+								<th style="min-width: 15px;">ID</th>
 								<th>课程名</th>
 								<th>课程描述</th>
-								<th>上传时间</th>
-								<th>更新时间</th>
-								<th>上传者</th>
-								<th>课程分类</th>
-								<th>课程方向</th>
-								<th>图片</th>
-								<th>操作</th>
+								<th style="min-width: 130px;">上传时间</th>
+								<%--<th>更新时间</th>--%>
+								<th style="min-width: 45px;">上传者</th>
+								<th style="min-width: 60px;">课程分类</th>
+								<th style="min-width: 60px;">课程方向</th>
+								<th style="min-width: 140px;">图片</th>
+								<th  style="min-width: 113px;">操作</th>
 							</tr>
 						</table>
 						<div class="list-page">2 条 1/1 页</div>
