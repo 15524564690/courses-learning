@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface ClazzService {
     List<Clazz> getClassList();
+    List<Clazz> getClassList(String categoryId, String directionId, String className);
     boolean createClass(Clazz clazz);
     boolean addClass(Clazz clazz);
     boolean deleteClass(String id);

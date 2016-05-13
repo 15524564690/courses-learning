@@ -13,13 +13,17 @@ import java.util.List;
  * Created by zhaobin on 16/5/10.
  */
 @Service("clazzService")
-public class ClazzServiceImpl implements ClazzService{
+public class ClazzServiceImpl implements ClazzService {
     @Autowired
     @Qualifier("clazzMapper")
     private ClazzMapper clazzMapper;
 
     public List<Clazz> getClassList() {
         return clazzMapper.getClazzList();
+    }
+
+    public List<Clazz> getClassList(String categoryId, String directionId, String className) {
+        return clazzMapper.getClazzListBy(categoryId, directionId, className);
     }
 
     public boolean createClass(Clazz clazz) {

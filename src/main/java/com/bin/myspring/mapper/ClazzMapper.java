@@ -13,8 +13,13 @@ import java.util.List;
 @Transactional
 public interface ClazzMapper {
     List<Clazz> getClazzList();
+
+    List<Clazz> getClazzListBy(String categoryId, String directionId, String className);
+
     boolean createClazz(Clazz clazz);
+
     boolean updateClazz(Clazz clazz);
+
     boolean deleteClazz(String id);
 
 }
