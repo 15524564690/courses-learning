@@ -11,7 +11,7 @@ import com.bin.myspring.entity.User;
 public interface UserMapper {
 	List<User> getUserList();
 	boolean createUser(User user);
-	boolean updateUser(User user,String id);
+	boolean updateUser(User user);
 	boolean deleteUser(String id);
 	List<User> getUserByName(String username);
 	List<User> getUserById(String id);

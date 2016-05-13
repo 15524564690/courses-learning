@@ -10,36 +10,58 @@
 <link rel="stylesheet" type="text/css" href="${basePath }css/common.css" />
 <link rel="stylesheet" type="text/css" href="${basePath }css/main.css" />
 <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
+	<script src="${basePath }js/q.js"></script>
 	<script src="${basePath }js/jquery.min.js"></script>
 	<script>
+		var directionDefered = Q.defer(),categoryDefered = Q.defer();
+
 		$(function () {
-/*
-			$.ajax({
-				type: "GET",
-				url: "/action/clazz",
-				dataType: "json",
-				success: function (classList) {
-					//  console.log(JSON.stringify(categoryList));
-					for (var i = 0; i < classList.data.length; i++) {
-						$("#classManager").append(
-								"<tr><td class='tc'><input name='id[]' value='"+classList.data[i].id+"' type='checkbox'></td>"+
-								"<td>"+classList.data[i].id+"</td>"+
-								"<td>"+classList.data[i].classname+"</td>"+
-								"<td style='overflow: hidden;width: 200px;height:100px;'>"+classList.data[i].classdes+"</td>"+
-								"<td>"+classList.data[i].createtime+"</td>"+
-								"<td>"+classList.data[i].updatetime+"</td>"+
-								"<td>"+classList.data[i].userid+"</td>"+
-								"<td>"+classList.data[i].categoryid+"</td>"+
-								"<td>"+classList.data[i].directionid+"</td>"+
-								"<td>"+classList.data[i].pictureul+"</td>"+
-								"<td><a class='link-update btn btn-info' href=''>修改</a>"+
-								"<a style='margin-left: 5px' class='link-del btn btn-danger' " +
-								" href='' >删除</a></td></tr>");
+
+			$("#directionShow option").click("click",function (){alert($(this).val())});
+
+
+			$("#addclass").click(function() {
+				alert($("#clazzform").serialize());
+				$.ajax({
+					type: "post",
+					url: "/action/clazz/createClazz",
+					dataType: "json",
+					data:$("#classform").serialize(),
+					success: function (result) {
+						if(result.data == true)
+							window.location.href="kechengguanli.jsp";
+					},
+					error: function (e) {
 					}
-				},
-				error: function (e) {
-				}
-			});*/
+				});
+			});
+			/*
+                        $.ajax({
+                            type: "GET",
+                            url: "/action/clazz",
+                            dataType: "json",
+                            success: function (classList) {
+                                //  console.log(JSON.stringify(categoryList));
+                                for (var i = 0; i < classList.data.length; i++) {
+                                    $("#classManager").append(
+                                            "<tr><td class='tc'><input name='id[]' value='"+classList.data[i].id+"' type='checkbox'></td>"+
+                                            "<td>"+classList.data[i].id+"</td>"+
+                                            "<td>"+classList.data[i].classname+"</td>"+
+                                            "<td style='overflow: hidden;width: 200px;height:100px;'>"+classList.data[i].classdes+"</td>"+
+                                            "<td>"+classList.data[i].createtime+"</td>"+
+                                            "<td>"+classList.data[i].updatetime+"</td>"+
+                                            "<td>"+classList.data[i].userid+"</td>"+
+                                            "<td>"+classList.data[i].categoryid+"</td>"+
+                                            "<td>"+classList.data[i].directionid+"</td>"+
+                                            "<td>"+classList.data[i].pictureul+"</td>"+
+                                            "<td><a class='link-update btn btn-info' href=''>修改</a>"+
+                                            "<a style='margin-left: 5px' class='link-del btn btn-danger' " +
+                                            " href='' >删除</a></td></tr>");
+                                }
+                            },
+                            error: function (e) {
+                            }
+                        });*/
 			$.ajax({
 				type: "GET",
 				url: "/action/direction",
@@ -48,10 +70,14 @@
 					//  console.log(JSON.stringify(categoryList));
 					for (var i = 0; i < directionList.data.length; i++) {
 						$("#directionShow").append(
-								"<option value='directionList.data[i].id'>"+directionList.data[i].directionname+"</option>");
+								"<option value='"+directionList.data[i].id+"'>"+directionList.data[i].directionname+"</option>");
 					}
+					directionDefered.resolve(directionList);
+
 				},
 				error: function (e) {
+					directionDefered.reject(e);
+
 				}
 			});
 			$.ajax({
@@ -62,15 +88,18 @@
 					//  console.log(JSON.stringify(categoryList));
 					for (var i = 0; i < categoryList.data.length; i++) {
 						$("#categoryShow").append(
-								"<option value='categoryList.data[i].id'>"+categoryList.data[i].categoryname+"</option>");
+								"<option value='"+categoryList.data[i].id+"'>"+categoryList.data[i].categoryname+"</option>");
 
 					}
+					categoryDefered.resolve(categoryList);
+
 				},
 				error: function (e) {
+					categoryDefered.reject(e);
+
 				}
 			});
 		});
-
 	</script>
 </head>
 <body>
@@ -126,57 +155,47 @@
 			</div>
 			<div class="result-wrap">
 				<div class="result-content">
-					<form action="/jscss/admin/design/add" method="post" id="myform"
+					<form  method="post" id="classform"
 						name="myform" enctype="multipart/form-data">
 						<table class="insert-tab" width="100%">
 							<tbody>
 								<tr>
 									<th width="120"><i class="require-red">*</i>方向：</th>
-									<td><select name="colId" id="directionShow" class="required">
+									<td><select name="directionid" id="directionShow" class="required">
 											<option value="">请选择</option>
 									</select></td>
 								</tr>
 								<tr>
 									<th width="120"><i class="require-red">*</i>分类：</th>
-									<td><select name="colId" id="categoryShow" class="required">
+									<td><select name="categoryid" id="categoryShow" class="required">
 											<option value="">请选择</option>
 									</select></td>
 								</tr>
 								<tr>
 									<th><i class="require-red">*</i>课程名称：</th>
 									<td><input class="common-text required" id="title"
-										name="title" size="50" value="" type="text"></td>
-								</tr>
-								<tr>
-									<th><i class="require-red">*</i>标题：</th>
-									<td><input class="common-text required" id="title"
-										name="title" size="50" value="" type="text"></td>
+										name="classname" size="50" value="" type="text"></td>
 								</tr>
 								<tr>
 									<th>作者：</th>
-									<td><input class="common-text" name="author" size="50"
-										value="admin" type="text"></td>
+									<td><input class="common-text" name="userid" size="50"
+										value="" type="text"></td>
 								</tr>
 								<tr>
 									<th><i class="require-red">*</i>图片：</th>
-									<td><input name="smallimg" id="" type="file">
+									<td><input name="pictureul" id="" type="file">
 									<!--<input type="submit" onclick="submitForm('/jscss/admin/design/upload')" value="上传图片"/>--></td>
 								</tr>
 								<tr>
 									<th>课程描述：</th>
-									<td><textarea name="discribes" class="common-textarea"
+									<td><textarea name="classdes" class="common-textarea"
 											id="content" cols="5" style="width: 80%;" rows="2"></textarea></td>
 								</tr>
 								<tr>
-									<th>章节：</th>
-									<td><textarea name="content" class="common-textarea"
-											id="content" cols="30" style="width: 98%;" rows="10"></textarea></td>
-								</tr>
-								<tr>
 									<th></th>
-									<td><input class="btn btn-primary btn6 mr10" value="提交"
-										type="submit"> <input class="btn btn6"
-										onclick="history.go(-1)" value="返回" type="button"></td>
+									<td><a id="addclass" class="btn btn-primary btn6 mr10"
+										>提交</a> <a class="btn btn6"
+										onclick="history.go(-1)" >返回</a></td>
 								</tr>
 							</tbody>
 						</table>

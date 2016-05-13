@@ -1,5 +1,6 @@
 package com.bin.myspring.controller;
 
+import com.bin.myspring.entity.Direction;
 import com.bin.myspring.entity.ResModel;
 import com.bin.myspring.entity.Test;
 import com.bin.myspring.entity.User;
@@ -60,6 +61,33 @@ public class UserController {
         boolean state = userService.regist(user);
         String code = "200";
         String message = "";
+        return new ResModel(code, message, state);
+    }
+    @RequestMapping(value = "deleteUser", method = RequestMethod.GET)
+    public ResModel deleteUserById(@RequestParam("id")String id) {
+        List<User> userList = null;
+        String code = "200";
+        String message = "";
+        if(userService.deleteUser(id)){
+            userList = userService.getUserList();
+            message="删除成功!";
+        }else{
+            message="删除失败!";
+        }
+        return new ResModel(code, message, userList);
+    }
+    @RequestMapping(value = "updateUser", method = RequestMethod.POST)
+    public ResModel updateUserById(User user) {
+        System.out.print(user.getPassword()+user.getCreatetime());
+        boolean state =userService.updateUser(user);
+        String code = "200";
+        String message = "";
+
+        if(state){
+            message="更新成功!";
+        }else{
+            message="更新失败!";
+        }
         return new ResModel(code, message, state);
     }
 }

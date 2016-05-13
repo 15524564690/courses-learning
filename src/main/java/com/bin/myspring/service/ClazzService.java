@@ -9,8 +9,9 @@ import java.util.List;
  */
 public interface ClazzService {
     List<Clazz> getClassList();
+    boolean createClass(Clazz clazz);
     boolean addClass(Clazz clazz);
     boolean deleteClass(String id);
-    boolean updateClass(Clazz clazz,String id);
+    boolean updateClass(Clazz clazz);
 
 }

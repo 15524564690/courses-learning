@@ -9,7 +9,8 @@ import java.util.List;
  */
 public interface DirectionService {
     List<Direction> getDirectionList();
+    List<Direction> getDirectionById(String  id);
     boolean addDirection(Direction direction);
-    boolean deleteDirection(String id);
-    boolean updateDirection(Direction direction,String id);
+    boolean deleteDirection(String  id);
+    boolean updateDirection(Direction direction);
 }

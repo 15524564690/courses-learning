@@ -14,7 +14,7 @@ import java.util.List;
 public interface ClazzMapper {
     List<Clazz> getClazzList();
     boolean createClazz(Clazz clazz);
-    boolean updateClazz(Clazz clazz,String id);
+    boolean updateClazz(Clazz clazz);
     boolean deleteClazz(String id);
 
 }

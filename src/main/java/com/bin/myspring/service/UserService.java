@@ -9,5 +9,7 @@ public interface UserService {
 	boolean checkUser(String username);
 	boolean login(String username,String password);
 	boolean regist(User user);
+	boolean deleteUser(String id);
+	boolean updateUser(User user);
 
 }

@@ -22,6 +22,10 @@ public class ClazzServiceImpl implements ClazzService{
         return clazzMapper.getClazzList();
     }
 
+    public boolean createClass(Clazz clazz) {
+        return clazzMapper.createClazz(clazz);
+    }
+
     public boolean addClass(Clazz clazz) {
         return clazzMapper.createClazz(clazz);
     }
@@ -30,7 +34,7 @@ public class ClazzServiceImpl implements ClazzService{
         return clazzMapper.deleteClazz(id);
     }
 
-    public boolean updateClass(Clazz clazz, String id) {
-        return clazzMapper.updateClazz(clazz,id);
+    public boolean updateClass(Clazz clazz) {
+        return clazzMapper.updateClazz(clazz);
     }
 }

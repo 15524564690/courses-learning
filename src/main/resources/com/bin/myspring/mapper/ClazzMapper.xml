@@ -32,12 +32,13 @@
         clazz
     </select>
     <insert id="createClazz" parameterType="com.bin.myspring.entity.Clazz" >
-        insert into clazz (id,clazzname,classdes,updatetime,createtime,userid,categoryid,directionid,pictureul) values
-        (#{id},#{userid},#{classname},#{classdes},#{createtime},#{updatetime},#{categoryid},#{directionid},#{pictureul})
+        insert into clazz (id,classname,classdes,updatetime,createtime,userid,categoryid,directionid,pictureul) values
+        (#{id},#{classname},#{classdes},#{updatetime},#{createtime},#{userid},#{categoryid},#{directionid},#{pictureul})
     </insert>
     <update id="updateClazz" parameterType="com.bin.myspring.entity.Clazz">
-        update clazz set id=#{id},classname=#{classname},classdes=#{classdes},createtime=#{createtime},
+        update clazz set classname=#{classname},classdes=#{classdes},createtime=#{createtime},
         updatetime=#{updatetime},userid=#{userid},categoryid=#{categoryid},directionid=#{directionid},pictureul=#{pictureul}
+        where id=#{id}
     </update>
     <delete id="deleteClazz" parameterType="com.bin.myspring.entity.Clazz">
         delete from clazz where id=#{id}

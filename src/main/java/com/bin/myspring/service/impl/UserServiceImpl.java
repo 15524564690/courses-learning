@@ -67,6 +67,14 @@ public class UserServiceImpl implements UserService{
         return userMapper.createUser(user);
     }
 
+    public boolean deleteUser(String id) {
+        return userMapper.deleteUser(id);
+    }
+
+    public boolean updateUser(User user) {
+        return userMapper.updateUser(user);
+    }
+
     public List<User> getOneUser() {
         return null;
     }

@@ -34,11 +34,11 @@
 		(#{uuid},#{username},#{password},#{nickname},#{role},#{createtime},#{tel},#{email})
 	</insert>
 	<update id="updateUser" parameterType="com.bin.myspring.entity.User">
-		update user set uuid=#{uuid},username=#{username},password=#{password},nickname=#{nickname},
-		role=#{role},createtime=#{createtime},tel=#{tel},email=#{email}
+		update user set username=#{username},password=#{password},nickname=#{nickname},
+		role=#{role},createtime=#{createtime},tel=#{tel},email=#{email} where uuid=#{uuid}
 	</update>
 	<delete id="deleteUser" parameterType="com.bin.myspring.entity.User">
-		delete from user where id=#{id}
+		delete from user where uuid=#{id}
 	</delete>
 	<select id="getUserByName" resultType="list" parameterType="com.bin.myspring.entity.User" resultMap="resultUser">
 		SELECT * FROM

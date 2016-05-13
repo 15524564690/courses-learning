@@ -18,11 +18,15 @@
         SELECT * FROM
         direction
     </select>
+    <select id="getDirectionById" resultType="list" parameterType="com.bin.myspring.entity.Direction" resultMap="resultDirection"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        direction where id=#{id}
+    </select>
     <insert id="createDirection" parameterType="com.bin.myspring.entity.Direction">
         insert into direction (id,directionname) values (#{id},#{directionname})
     </insert>
     <update id="updateDirection" parameterType="com.bin.myspring.entity.Direction">
-        update direction set id=#{id},directionname=#{directionname}
+        update direction set directionname=#{directionname} where id=#{id}
     </update>
     <delete id="deleteDirection" parameterType="com.bin.myspring.entity.Direction">
         delete from direction where id=#{id}

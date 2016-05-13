@@ -13,7 +13,8 @@ import java.util.List;
 @Transactional
 public interface CategoryMapper {
     List<Category> getCategoryList();
+    List<Category> getCategoryById(String id);
     boolean createCategory(Category category);
     boolean deleteCategory(String id);
-    boolean updateCategory(Category category,String id);
+    boolean updateCategory(Category category);
 }

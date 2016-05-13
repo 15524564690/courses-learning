@@ -10,9 +10,15 @@
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
+	<script src="${basePath }js/q.js"></script>
 	<script src="${basePath }js/jquery.min.js"></script>
 	<script>
+		var categoryDefered = Q.defer();
 		$(function () {
+
+			getCategoryList();
+		});
+		function getCategoryList() {
 
 			$.ajax({
 				type: "GET",
@@ -22,16 +28,34 @@
 					//  console.log(JSON.stringify(categoryList));
 					for (var i = 0; i < categoryList.data.length; i++) {
 						$("#categoryManager").append(
-								"<tr><td class='tc'><input name='id[]' value='"+categoryList.data[i].id+"' type='checkbox'></td>"+
-								"<td>"+categoryList.data[i].id+"</td>"+
-								"<td>"+categoryList.data[i].categoryname+"</td>"+
-								"<td><a class='link-update btn btn-info' href=''>修改</a>"+
-								"<a style='margin-left: 5px' class='link-del btn btn-danger' " +
+								"<tr><td class='tc'><input name='id[]' value='" + categoryList.data[i].id + "' type='checkbox'></td>" +
+								"<td>" + categoryList.data[i].id + "</td>" +
+								"<td>" + categoryList.data[i].categoryname + "</td>" +
+								"<td><a class='link-update btn btn-info' href='updateCategory.jsp?id=" + categoryList.data[i].id + "&categoryname=" + categoryList.data[i].categoryname + "'>修改</a>" +
+								"<a id='" + categoryList.data[i].id + "'style='margin-left: 5px' class='deleteCategory link-del btn btn-danger' " +
 								" href='' >删除</a></td></tr>");
 					}
+					categoryDefered.resolve(categoryList);
+
 				},
 				error: function (e) {
+					categoryDefered.reject(e);
 				}
+			});
+		};
+
+		categoryDefered.promise.then(function () {
+			$(".deleteCategory").click(function () {
+				$.ajax({
+					type: "GET",
+					url: "/action/category/deleteCategory?id=" + $(this).attr("id"),
+					dataType: "json",
+					success: function () {
+						getCategoryList();
+					},
+					error: function (e) {
+					}
+				});
 			});
 		});
 
@@ -91,7 +115,7 @@
 				<form name="myform" id="myform" method="post">
 					<div class="result-title">
 						<div class="result-list">
-							<a class="btn btn-warning" href="addClass.jsp"><i class="icon-font"></i>新增分类</a> <a
+							<a class="btn btn-warning" href="add.jsp?type=2"><i class="icon-font"></i>新增分类</a> <a
 								class="btn btn-warning" id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
 						</div>
 					</div>

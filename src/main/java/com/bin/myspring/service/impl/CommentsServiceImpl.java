@@ -30,7 +30,7 @@ public class CommentsServiceImpl implements CommentsService{
 		return commentsMapper.deleteComments(id);
 	}
 
-	public boolean updateComments(Comments comments, String id) {
-		return commentsMapper.updateComments(comments,id);
+	public boolean updateComments(Comments comments) {
+		return commentsMapper.updateComments(comments);
 	}
 }

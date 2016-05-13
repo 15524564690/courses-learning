@@ -14,7 +14,7 @@ public interface CommentsMapper {
 	
 	List<Comments> getCommentsList();
 	boolean createComments(Comments comments);
-	boolean updateComments(Comments comments,String id);
+	boolean updateComments(Comments comments);
 	boolean deleteComments(String id);
 	List<Comments> getCommentsByUserid(String userid);
 }

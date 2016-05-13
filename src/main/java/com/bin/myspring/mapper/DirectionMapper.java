@@ -13,7 +13,8 @@ import java.util.List;
 @Transactional
 public interface DirectionMapper {
     List<Direction> getDirectionList();
+    List<Direction> getDirectionById(String  id);
     boolean createDirection(Direction direction);
-    boolean deleteDirection(String id);
-    boolean updateDirection(Direction direction, String id);
+    boolean deleteDirection(String  id);
+    boolean updateDirection(Direction direction);
 }

@@ -10,10 +10,15 @@
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
+    <script src="${basePath }js/q.js"></script>
     <script src="${basePath }js/jquery.min.js"></script>
     <script>
+        var directionDefered = Q.defer();
         $(function () {
 
+           getDirectionList();
+        });
+        function getDirectionList(){
             $.ajax({
                 type: "GET",
                 url: "/action/direction",
@@ -25,13 +30,31 @@
                                 "<tr><td class='tc'><input name='id[]' value='"+directionList.data[i].id+"' type='checkbox'></td>"+
                                 "<td>"+directionList.data[i].id+"</td>"+
                                 "<td>"+directionList.data[i].directionname+"</td>"+
-                                "<td><a class='link-update btn btn-info' href=''>修改</a>"+
-                                "<a style='margin-left: 5px' class='link-del btn btn-danger' " +
+                                "<td><a  class='updateDirection link-update btn btn-info' href='updateDirection.jsp?id="+directionList.data[i].id+"&directionname="+directionList.data[i].directionname+"'>修改</a>"+/*"*/
+                                "<a id='"+directionList.data[i].id+"' style='margin-left: 5px' class='deleteDirection link-del btn btn-danger' " +
                                 " href='' >删除</a></td></tr>");
+
                     }
+                    directionDefered.resolve(directionList);
+
                 },
                 error: function (e) {
+                    directionDefered.reject(e);
                 }
+            });
+        }
+        directionDefered.promise.then(function () {
+            $(".deleteDirection").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/action/direction/deleteDirection?id=" + $(this).attr("id"),
+                    dataType: "json",
+                    success: function (directionList) {
+                        getDirectionList();
+                    },
+                    error: function (e) {
+                    }
+                });
             });
         });
 
@@ -88,7 +111,7 @@
             <form name="myform" id="myform" method="post">
                 <div class="result-title">
                     <div class="result-list">
-                        <a class="btn btn-warning" href="addDirection.jsp"><i class="icon-font"></i>新增方向</a>
+                        <a class="btn btn-warning" href="add.jsp?type=1"><i class="icon-font"></i>新增方向</a>
                         <a class="btn btn-warning" id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
                     </div>
                 </div>

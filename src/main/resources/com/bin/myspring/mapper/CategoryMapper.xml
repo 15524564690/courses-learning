@@ -18,11 +18,15 @@
         SELECT * FROM
         category
     </select>
+    <select id="getCategoryById" resultType="list" parameterType="com.bin.myspring.entity.Category" resultMap="resultCategory"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        category where id=#{id}
+    </select>
     <insert id="createCategory" parameterType="com.bin.myspring.entity.Category" >
         insert into category (id,categoryname) values (#{id},#{categoryname})
     </insert>
      	<update id="updateCategory" parameterType="com.bin.myspring.entity.Category">
-            update category set id=#{id},categoryname=#{categoryname}
+            update category set categoryname=#{categoryname} where id=#{id}
         </update>
         <delete id="deleteCategory" parameterType="com.bin.myspring.entity.Category">
             delete from category where id=#{id}

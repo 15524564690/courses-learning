@@ -21,6 +21,10 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.getCategoryList();
     }
 
+    public List<Category> getCategoryById(String id) {
+        return categoryMapper.getCategoryById(id);
+    }
+
     public boolean addCategory(Category category) {
         return categoryMapper.createCategory(category);
     }
@@ -29,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.deleteCategory(id);
     }
 
-    public boolean updateCategory(Category category, String id) {
-        return categoryMapper.updateCategory(category,id);
+    public boolean updateCategory(Category category) {
+        return categoryMapper.updateCategory(category);
     }
 }

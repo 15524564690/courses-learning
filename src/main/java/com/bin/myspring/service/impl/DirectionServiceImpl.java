@@ -22,15 +22,19 @@ public class DirectionServiceImpl implements DirectionService {
         return directionMapper.getDirectionList();
     }
 
+    public List<Direction> getDirectionById(String  id) {
+        return directionMapper.getDirectionById(id);
+    }
+
     public boolean addDirection(Direction direction) {
         return directionMapper.createDirection(direction);
     }
 
-    public boolean deleteDirection(String id) {
+    public boolean deleteDirection(String  id) {
         return directionMapper.deleteDirection(id);
     }
 
-    public boolean updateDirection(Direction direction, String id) {
-        return directionMapper.updateDirection(direction,id);
+    public boolean updateDirection(Direction direction) {
+        return directionMapper.updateDirection(direction);
     }
 }

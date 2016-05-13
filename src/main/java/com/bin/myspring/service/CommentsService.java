@@ -8,5 +8,5 @@ public interface CommentsService {
 	List<Comments> getCommentsList();
 	boolean addComments(Comments comments);
 	boolean deleteComments(String id);
-	boolean updateComments(Comments comments,String id);
+	boolean updateComments(Comments comments);
 }

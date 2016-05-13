@@ -10,18 +10,24 @@
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
+    <script src="${basePath }js/q.js"></script>
     <script src="${basePath }js/jquery.min.js"></script>
     <script>
+        var userDefered = Q.defer();
+
         $(function () {
+
+            getUserList();
+        });
+        function getUserList () {
 
             $.ajax({
                 type: "GET",
                 url: "/action/user",
                 dataType: "json",
                 success: function (userList) {
-                    //  console.log(JSON.stringify(categoryList));
                     for (var i = 0; i < userList.data.length; i++) {
-                        $("#userMessage").append(
+                        $("#userMessage").append(""+
                                 "<tr><td class='tc'><input name='id[]' value='"+userList.data[i].uuid+"' type='checkbox'></td>"+
                                 "<td>"+userList.data[i].uuid+"</td>"+
                                 "<td>"+userList.data[i].username+"</td>"+
@@ -31,16 +37,41 @@
                                 "<td>"+userList.data[i].createtime+"</td>"+
                                 "<td>"+userList.data[i].tel+"</td>"+
                                 "<td>"+userList.data[i].email+"</td>"+
-                                "<td><a class='link-update btn btn-info' href=''>修改</a>"+
-                                "<a style='margin-left: 20px' class='link-del btn btn-danger' " +
-                                " href='' >删除</a></td></tr>");
+                                "<td><a class='link-update btn btn-info' href='updateUser.jsp?uuid="+userList.data[i].uuid+
+                                "&username="+userList.data[i].username+
+                                "&password="+userList.data[i].password+
+                                "&nickname="+userList.data[i].nickname+
+                                "&role="+userList.data[i].role+
+                                "&createtime="+userList.data[i].createtime+
+                                "&tel="+userList.data[i].tel+
+                                "&email="+userList.data[i].email+
+                                "'>修改</a>"+
+                                "<a style='margin-left: 20px' class='deleteUser link-del btn btn-danger' " +
+                                " id='"+userList.data[i].uuid+"' href='' >删除</a></td></tr></form>");
+
                     }
+                    userDefered.resolve(userList);
                 },
                 error: function (e) {
+                    userDefered.reject(e);
+
                 }
             });
+        }
+        userDefered.promise.then(function () {
+            $(".deleteUser").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/action/user/deleteUser?id=" + $(this).attr("id"),
+                    dataType: "json",
+                    success: function () {
+                        getUserList();
+                    },
+                    error: function (e) {
+                    }
+                });
+            });
         });
-
     </script></head>
 <body>
 <div class="topbar-wrap white">

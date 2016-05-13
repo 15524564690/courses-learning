@@ -7,11 +7,97 @@
 <head>
     <meta charset="UTF-8">
     <title>后台管理</title>
+    <style>
+        .class-desc {
+            width: 300px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .class-desc:hover+span {
+            display: block;
+        }
+
+        .class-desc+span {
+            display: none;
+            position: absolute;
+            left: 5px;
+            top: 55px;
+            width: 400px;
+            z-index: 1000;
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+        }
+    </style>
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
-</head>
-<body>
+    <script src="${basePath }js/q.js"></script>
+    <script src="${basePath }js/jquery.min.js"></script>
+    <script>
+        var commentsDefered = Q.defer();
+
+        $(function () {
+
+            getCommentsList();
+        });
+        function getCommentsList () {
+
+            $.ajax({
+                type: "GET",
+                url: "/action/comments",
+                dataType: "json",
+                success: function (commentsList) {
+                    for (var i = 0; i < commentsList.data.length; i++) {
+                        $("#commentsMessage").append(""+
+                                "<tr><td class='tc'><input name='check"+commentsList.data[i].id+"' value='"+commentsList.data[i].id+"' type='checkbox'></td>"+
+                                "<td>"+commentsList.data[i].id+"</td>"+
+                                "<td>"+commentsList.data[i].userid+"</td>"+
+                                "<td>"+commentsList.data[i].titleid+"</td>"+
+                                "<td>"+commentsList.data[i].commentid+"</td>"+
+                                "<td style=\"position: relative;\"><div class=\"class-desc\">"+commentsList.data[i].content+
+                                "</div><span>"+commentsList.data[i].content+"</span></td>"+
+                                "<td>"+commentsList.data[i].createtime+"</td>"+
+                                "<td><a class='link-update btn btn-info' href='updateComments.jsp?id="+
+                                    commentsList.data[i].id+
+                                "&userid="+commentsList.data[i].userid+
+                                "&titleid="+commentsList.data[i].titleid+
+                                "&commentid="+commentsList.data[i].commentid+
+                                "&content="+commentsList.data[i].content+
+                                "&createtime="+commentsList.data[i].createtime+"'>修改</a>"+
+                                "<a style='margin-left: 20px' class='deleteComments link-del btn btn-danger' " +
+                                " id='"+commentsList.data[i].id+"' href='' >删除</a></td></tr></form>");
+
+                    }
+                    commentsDefered.resolve(commentsList);
+                },
+                error: function (e) {
+                    commentsDefered.reject(e);
+
+                }
+            });
+        }
+        commentsDefered.promise.then(function () {
+            $(".deleteComments").click(function () {
+                $.ajax({
+                    type: "GET",
+                    url: "/action/comments/deleteComments?id=" + $(this).attr("id"),
+                    dataType: "json",
+                    success: function (result) {
+                        if (result.data==""){
+                        getCommentsList();}else
+                        {
+                            alert(result.data);
+                        }
+                    },
+                    error: function (e) {
+                    }
+                });
+            });
+        });
+    </script></head><body>
 <div class="topbar-wrap white">
     <div class="topbar-inner clearfix">
         <div class="topbar-logo-wrap clearfix">
@@ -55,7 +141,8 @@
     <div class="main-wrap">
 
         <div class="crumb-wrap">
-            <div class="crumb-list"><i class="icon-font"></i><a href="http://localhost:8080/mag/manager.jsp">首页</a><span class="crumb-step">&gt;</span><span class="crumb-name">评论管理</span></div>
+            <div class="crumb-list"><i class="icon-font"></i><a href="http://localhost:8080/mag/manager.jsp">首页</a>
+                <span class="crumb-step">&gt;</span><span class="crumb-name">评论管理</span></div>
         </div>
         <div class="search-wrap" style="height:30px"></div>
         <div class="result-wrap">
@@ -66,32 +153,17 @@
                     </div>
                 </div>
                 <div class="result-content">
-                    <table class="result-tab" width="100%">
+                    <table id="commentsMessage" class="result-tab" width="100%">
                         <tr>
                             <th class="tc" width="5%"></th>
                             <th>ID</th>
-                            <th>课程名</th>
                             <th>用户名</th>
-                            <th>评论</th>
-                            <th>回复人</th>
+                            <th>标题</th>
+                            <th>评论ID</th>
+                            <th>评论内容</th>
                             <th>更新时间</th>
                             <th>操作</th>
                         </tr>
-                        <c:forEach items="${ comments }" var="comments">
-                        <tr>
-                            <td class="tc"><input name="id[]" value="59" type="checkbox"></td>
-                            <td>${ comments.id }</td>
-                            <td >C++远征之封装篇（下）</td>
-                            <td>${ comments.userName }</td>
-                            <td>${ comments.comment }</td>
-                            <td>${ comments.userName }</td>
-                            <td>${ comments.upLoadTime }</td>
-                            <td>
-                                <a class="link-update" href="#">修改</a>
-                                <a class="link-del" href="#">删除</a>
-                            </td>
-                        </tr>
-                     </c:forEach>
                     </table>
                     <div class="list-page"> 2 条 1/1 页</div>
                 </div>

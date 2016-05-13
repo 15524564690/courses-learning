@@ -12,13 +12,21 @@
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
     <script src="${basePath }js/jquery.min.js"></script>
     <script>
+
         $(function () {
             $("#addone").click(function () {
-                $("#addDirection tbody").append(
-                        "<tr><th width='120'></th>"+
-                "<td><input class='common-text required' id='title'"+
-                "name='title' size='50' value='' type='text'></td></tr>");
-            })
+                if(${param.type == 1}){
+                    $("#addDirection tbody").append(
+                            "<tr><th width='120'></th>"+
+                            "<td><input class='common-text required' id='title'"+
+                            "name='title' size='50' value='' type='text'></td></tr>");
+                }else if(${param.type ==2}){
+                    $("#addCategory tbody").append(
+                            "<tr><th width='120'></th>"+
+                            "<td><input class='common-text required' id='title'"+
+                            "name='title' size='50' value='' type='text'></td></tr>");
+                }
+            });
         });
 
 
@@ -77,28 +85,38 @@
         </div>
         <div class="result-wrap">
             <div class="result-content">
-                <form action="/jscss/admin/design/add" method="post" id="myform"
-                      name="myform" enctype="multipart/form-data">
+                <form id="updateform" method="get">
+                    <c:if test="${param.type == 1}">
                     <table id="addDirection" class="insert-tab" width="100%">
-                        <tbody>
-                        <tr>
-                            <th width="120"><i class="require-red">*</i>方向：</th>
-                            <td><input class="common-text required" id="title"
-                                       name="title" size="50" value="" type="text"></td>
-                        </tr>
-
-
+                    </c:if>
+                    <c:if test="${param.type == 2}">
+                    <table id="addCategory" class="insert-tab" width="100%">
+                    </c:if>
+                            <tbody>
+                        <c:if test="${param.type == 1}">
+                            <tr>
+                                <th width="120"><i class="require-red">*</i>方向：</th>
+                                <td><input class="common-text required" id="direction"
+                                           name="title" size="50" value="" type="text"></td>
+                            </tr>
+                        </c:if>
+                        <c:if test="${param.type == 2}">
+                            <tr>
+                                <th width="120"><i class="require-red">*</i>分类：</th>
+                                <td><input class="common-text required" id="category"
+                                           name="title" size="50" value="" type="text"></td>
+                            </tr>
+                        </c:if>
                         </tbody>
                         <tfoot>
                         <tr>
                             <th><a id="addone" class="btn btn-warning">添加一条 </a></th>
                             <td><input style="margin:0 50px" class="btn btn6" onclick="history.go(-1)" value="返回" type="button">
-                                <input class="btn btn-success btn6 mr10" value="提交" type="submit"> </td>
+                                <a id="updateD"  class="btn btn-success btn6 mr10">提交</a> </td>
                         </tr>
 
                         </tfoot>
-                    </table>
-                </form>
+                    </table></form>
             </div>
         </div>
 

@@ -34,10 +34,15 @@
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
+	<script src="${basePath }js/q.js"></script>
 	<script src="${basePath }js/jquery.min.js"></script>
 	<script>
+		var clazzDefered = Q.defer();
+
 		$(function () {
 
+			getClassList();
+			function getClassList(){
 			$.ajax({
 				type: "GET",
 				url: "/action/clazz",
@@ -58,14 +63,28 @@
 								"<td>"+classList.data[i].categoryid+"</td>"+
 								"<td>"+classList.data[i].directionid+"</td>"+
 								"<td>"+classList.data[i].pictureul+"</td>"+
-								"<td><a class='link-update btn btn-info' href=''>修改</a>"+
-								"<a style='margin-left: 5px' class='link-del btn btn-danger' " +
+								"<td><a class='link-update btn btn-info' href='updateClazz.jsp?id="+
+								classList.data[i].id+
+								"&classname="+classList.data[i].classname+
+								"&classdes="+classList.data[i].classdes+
+								"&createtime="+classList.data[i].createtime+
+								"&updatetime="+classList.data[i].updatetime+
+								"&userid="+classList.data[i].userid+
+								"&categoryid="+classList.data[i].categoryid+
+								"&directionid="+classList.data[i].directionid+
+								"&pictureul="+classList.data[i].pictureul+"'>修改</a>"+
+								"<a id='"+classList.data[i].id+"' style='margin-left: 5px' class='deleteClass link-del btn btn-danger' " +
 								" href='' >删除</a></td></tr>");
 					}
+					clazzDefered.resolve(classList);
+
 				},
 				error: function (e) {
+					clazzDefered.reject(e);
+
 				}
 			});
+			}
 			$.ajax({
 				type: "GET",
 				url: "/action/direction",
@@ -74,12 +93,15 @@
 					//  console.log(JSON.stringify(categoryList));
 					for (var i = 0; i < directionList.data.length; i++) {
 						$("#directionShow").append(
-								"<option value='directionList.data[i].id'>"+directionList.data[i].directionname+"</option>");
+								"<option value='directionList.data[i].id'>"+
+								directionList.data[i].directionname+"</option>");
 					}
 				},
 				error: function (e) {
 				}
 			});
+
+
 			$.ajax({
 				type: "GET",
 				url: "/action/category",
@@ -94,6 +116,24 @@
 				},
 				error: function (e) {
 				}
+			});
+		});
+		clazzDefered.promise.then(function () {
+			$(".deleteClass").click(function () {
+				$.ajax({
+					type: "GET",
+					url: "/action/clazz/deleteClazz?id=" + $(this).attr("id"),
+					dataType: "json",
+					success: function (result) {
+						if (result.data==""){
+							getClassList();}else
+						{
+							alert(result.data);
+						}
+					},
+					error: function (e) {
+					}
+				});
 			});
 		});
 
@@ -200,7 +240,7 @@
 								<th style="min-width: 60px;">课程分类</th>
 								<th style="min-width: 60px;">课程方向</th>
 								<th style="min-width: 140px;">图片</th>
-								<th  style="min-width: 113px;">操作</th>
+								<th style="min-width: 113px;">操作</th>
 							</tr>
 						</table>
 						<div class="list-page">2 条 1/1 页</div>
