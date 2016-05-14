@@ -31,6 +31,10 @@
         SELECT * FROM
         clazz
     </select>
+    <select id="getOneById" resultType="list" resultMap="resultClazz"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        clazz where id=#{id}
+    </select>
     <select id="getClazzListBy" resultType="list" resultMap="resultClazz"> <!--resultMap="resultCategory"-->
         SELECT * FROM
         clazz where categoryid like concat('%', #{0}, '%') and directionid like concat('%', #{1}, '%') and classname like CONCAT('%',#{2},'%' )

@@ -8,6 +8,7 @@ import java.util.List;
  * Created by zhaobin on 16/5/10.
  */
 public interface ClazzService {
+    List<Clazz> getOneById(String id);
     List<Clazz> getClassList();
     List<Clazz> getClassList(String categoryId, String directionId, String className);
     boolean createClass(Clazz clazz);

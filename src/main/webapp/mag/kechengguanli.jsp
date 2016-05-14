@@ -59,7 +59,7 @@
                     for (var i = 0; i < classList.data.length; i++) {
 
                                 html += "<tr><td class='tc'><input name='id[]' value='" + classList.data[i].id + "' type='checkbox'></td>" +
-                                "<td>" + classList.data[i].id + "</td>" +
+                                "<td style='width: 150px'>" + classList.data[i].id + "</td>" +
                                 "<td>" + classList.data[i].classname + "</td>" +
                                 "<td style=\"position: relative;\"><div class=\"class-desc\">" +
                                 classList.data[i].classdes +
@@ -182,8 +182,8 @@
         </div>
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
-                <li><a href="#">管理员</a></li>
-                <li><a href="#">退出</a></li>
+                <li><a href="javascript:void(0)"><%= request.getSession().getAttribute("username") %></a></li>
+                <li><a href="/action/user/loginoff">退出</a></li>
             </ul>
         </div>
     </div>
@@ -253,7 +253,6 @@
                 <div class="result-title">
                     <div class="result-list">
                         <a class="btn btn-warning" href="addClass.jsp"><i class="icon-font"></i>新增课程</a> <a
-                            class="btn btn-warning" id="batchDel" href="javascript:void(0)"><i class="icon-font"></i>批量删除</a>
                     </div>
                 </div>
                 <div class="result-content">

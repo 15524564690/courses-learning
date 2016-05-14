@@ -67,6 +67,7 @@ function getClass(){
         type: "GET",
         url: "/action/clazz",
         dataType: "json",
+        data:{categoryId:"",directionId:"",className:""},
         success: function (classList) {
             //  console.log(JSON.stringify(categoryList));
             for (var i = 0; i < classList.data.length; i++) {
@@ -77,9 +78,11 @@ function getClass(){
             //        <h5>${ classs.className }</h5>
             //        </a>
             //        </div>
+
                 $("#thumbnail").append(
                 "<div class='col-xs-6 col-md-3'>"+
-                    "<a href="+"'content.jsp?id="+classList.data[i].id+"' calss='thumbnail'>" +
+                    "<a href='/action/chapter/getContent?id="+
+                classList.data[i].id+"' class='thumbnail'>" +
                     "<img src= '"+classList.data[i].pictureul+"' alt='"+classList.data[i].classname+ "' />"+
                     "<h5>"+classList.data[i].classname+"</h5></a></div>");
             }

@@ -14,7 +14,10 @@ import java.util.List;
 @Transactional
 public interface ChapterMapper {
     List<Chapter> getChapterList();
-    boolean updateChapter(Chapter chapter,String id);
+    List<Chapter> getOneChapter(String clazzid);
+    boolean updateChapter(Chapter chapter);
     boolean createChapter(Chapter chapter);
     boolean deleteChapter(String id);
+
+
 }

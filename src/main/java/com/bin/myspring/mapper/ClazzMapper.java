@@ -13,7 +13,7 @@ import java.util.List;
 @Transactional
 public interface ClazzMapper {
     List<Clazz> getClazzList();
-
+    List<Clazz> getOneById(String id);
     List<Clazz> getClazzListBy(String categoryId, String directionId, String className);
 
     boolean createClazz(Clazz clazz);

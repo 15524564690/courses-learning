@@ -18,6 +18,10 @@ public class ClazzServiceImpl implements ClazzService {
     @Qualifier("clazzMapper")
     private ClazzMapper clazzMapper;
 
+    public List<Clazz> getOneById(String id) {
+        return clazzMapper.getOneById(id);
+    }
+
     public List<Clazz> getClassList() {
         return clazzMapper.getClazzList();
     }

@@ -51,7 +51,7 @@
             <div class="container">
                 <h1>Object Orient Analysis & Design</h1>
                 <p>欢迎使用OOAD课程学习网。</p>
-                <p><a class="btn btn-info btn-lg" href="#" role="button">Learn more</a></p>
+                <p><a class="btn btn-info btn-lg" href="/user/class.jsp" role="button">Learn more</a></p>
             </div>
         </div>
         <div class="col-md-7" style="margin-top: 130px">
@@ -66,15 +66,15 @@
                 <div class="carousel-inner">
                     <div class="item active">
                         <img class="lunbo-img" src="imges/index1.jpg" style="height: auto" alt="First slide">
-                        <div class="carousel-caption">标题 1</div>
+                        <div class="carousel-caption">Oracle</div>
                     </div>
                     <div class="item">
                         <img class="lunbo-img" src="imges/index2.jpg" alt="Second slide">
-                        <div class="carousel-caption">标题 2</div>
+                        <div class="carousel-caption">JS+CSS3</div>
                     </div>
                     <div class="item">
                         <img class="lunbo-img" src="imges/index3.jpg" alt="Third slide">
-                        <div class="carousel-caption">标题 3</div>
+                        <div class="carousel-caption">Activity</div>
                     </div>
                 </div>
                 <!-- 轮播（Carousel）导航 -->

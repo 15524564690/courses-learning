@@ -23,7 +23,7 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav" id="mytab">
-                    <li class="active"><a href="#">课程</a></li>
+                    <li class="active"><a href="javascript:void(0)">课程</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class=""><form class="navbar-form" role="search">
@@ -88,7 +88,7 @@
                     <h4 class="modal-title" id="userLogin">用户登录</h4>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="userform">
                         <div class="form-group">
                             <label for="username" class="control-label">用户名</label>
                             <input type="text" class="form-control" id="username">
@@ -116,10 +116,10 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="userLogin">用户登录</h4>
+                    <h4 class="modal-title" id="userRegist">用户登录</h4>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form >
                         <div class="form-group">
                             <label for="username" class="control-label">用户名</label>
                             <input type="text" class="form-control" id="username">

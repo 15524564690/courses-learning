@@ -24,6 +24,10 @@
         SELECT * FROM
         chapter
     </select>
+    <select id="getOneChapter" resultType="list" resultMap="resultChapter"> <!--resultMap="resultCategory"-->
+        SELECT * FROM
+        chapter where clazzid=#{clazzid}
+    </select>
     <insert id="createChapter" parameterType="com.bin.myspring.entity.Chapter" >
         insert into chapter (id,clazzid,num,chaptername,chapterdes) values
          (#{id},#{clazzid},#{num},#{chaptername},#{chapterdes})

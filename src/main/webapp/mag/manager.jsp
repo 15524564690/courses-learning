@@ -23,9 +23,8 @@
         </div>
         <div class="top-info-wrap">
             <ul class="top-info-list clearfix">
-                <li><a href="http://www.jscss.me">管理员</a></li>
-                <li><a href="http://www.jscss.me">修改密码</a></li>
-                <li><a href="http://www.jscss.me">退出</a></li>
+                <li><a href="javascript:void(0)"><%= request.getSession().getAttribute("username") %></a></li>
+                <li><a href="/action/user/loginoff">退出</a></li>
             </ul>
         </div>
     </div>

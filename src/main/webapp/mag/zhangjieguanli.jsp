@@ -10,6 +10,61 @@
     <link rel="stylesheet" type="text/css" href="${basePath }css/common.css"/>
     <link rel="stylesheet" type="text/css" href="${basePath }css/main.css"/>
     <script type="text/javascript" src="${basePath }js/modernizr.min.js"></script>
+    <script src="${basePath }js/q.js"></script>
+    <script src="${basePath }js/jquery.min.js"></script>
+    <script>
+        var chapterDefered = Q.defer();
+
+        $(function () {
+
+            getChapterList();
+        });
+        function getChapterList () {
+
+            $.ajax({
+                type: "GET",
+                url: "/action/chapter/getChapterAndTitle",
+                dataType: "json",
+                success: function (testList) {
+                    for (var i = 0; i < testList.data.length; i++) {
+                        $("#chapterMessage").append(""+
+                                "<tr><td class='tc'><input name='id[]' type='checkbox'></td>"+
+                                "<td>"+testList.data[i].classname+"</td>"+
+                                "<td>"+testList.data[i].chaptername+"</td>"+
+                                "<td>"+testList.data[i].chapterdes+"</td>"+
+                                "<td>"+testList.data[i].titlename+"</td>"+
+                                "<td>"+testList.data[i].titledes+"</td>"+
+                                "<td>"+testList.data[i].videourl+"</td>"+
+                                "<td>"+testList.data[i].ppturl+"</td>"+
+                                "<td>"+testList.data[i].resources+"</td>"+
+                                "<td><a class='link-update btn btn-info' href=''>修改</a>"+
+                                "<a style='margin-left: 20px' class='deleteChapter link-del btn btn-danger' " +
+                                " href='' >删除</a></td></tr></form>");
+
+                    }
+                    chapterDefered.resolve(testList);
+                },
+                error: function (e) {
+                    chapterDefered.reject(e);
+
+                }
+            });
+        }
+//        chapterDefered.promise.then(function () {
+//            $(".deleteChapter").click(function () {
+//                $.ajax({
+//                    type: "GET",
+//                    url: "/action/chapter/deleteChapter?id=" + $(this).attr("id"),
+//                    dataType: "json",
+//                    success: function () {
+//                        getChapterList();
+//                    },
+//                    error: function (e) {
+//                    }
+//                });
+//            });
+//        });
+    </script>
 </head>
 <body>
 <div class="topbar-wrap white">
@@ -58,7 +113,7 @@
 				<div class="crumb-list">
 					<i class="icon-font"></i><a
 						href="http://localhost:8080/mag/manager.jsp">首页</a><span
-						class="crumb-step">&gt;</span><span class="crumb-name">课程管理</span>
+						class="crumb-step">&gt;</span><span class="crumb-name">课程章节管理</span>
 				</div>
 			</div>
 			<div class="search-wrap">
@@ -67,14 +122,14 @@
 						<table class="search-tab">
 							<tr>
 								<th width="120">选择方向:</th>
-								<td><select name="search-sort" id="">
+								<td><select name="direcionid" id="directionShow">
 								<option value="">全部</option>
 									<c:forEach items="${ direction }" var="direction">
 									<option value="${ direction.id }">${ direction.typeName }</option>
 									</c:forEach>	
 								</select></td>
 								<th width="120">选择分类:</th>
-								<td><select name="search-sort" id="">
+								<td><select name="categoryid" id="categoryShow">
 										<option value="">全部</option>
 											<c:forEach items="${ sortType }" var="sortType">
 											<option value="${ sortType.id }">${ sortType.sortType }</option>
@@ -101,32 +156,19 @@
                     </div>
                 </div>
                 <div class="result-content">
-                    <table class="result-tab" width="100%">
+                    <table id="chapterMessage" class="result-tab" width="100%">
                         <tr>
                             <th class="tc" width="5%"></th>
-                            <th>ID</th>
+                            <th>课程名</th>
                             <th>章节</th>
                             <th>章节描述</th>
-                            <th>视频</th>
-                            <th>PPT</th>
-                            <th>TXT</th>
+                            <th>小结</th>
+                            <th>小结描述</th>
+                            <th>videourl</th>
+                            <th>ppturl</th>
+                            <th>resourcesurl</th>
                             <th>操作</th>
                         </tr>
-                        <c:forEach items="${ contents }" var="contents">
-                        <tr>
-                            <td class="tc"><input name="id[]" value="59" type="checkbox"></td>
-                            <td>${ contents.id }</td>
-                            <td>${ contents.chapter }</td>
-                            <td>${ contents.chapterDescribe }</td>
-                            <td>${ contents.video}</td>
-                            <td>${ contents.ppt }</td>
-                            <td>${ contents.txt }</td>
-                            <td>
-                                <a class="link-update" href="#">修改</a>
-                                <a class="link-del" href="#">删除</a>
-                            </td>
-                        </tr>
-						</c:forEach>
                     </table>
                     <div class="list-page"> 2 条 1/1 页</div>
                 </div>

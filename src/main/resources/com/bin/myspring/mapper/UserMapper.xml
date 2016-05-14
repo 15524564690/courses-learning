@@ -44,6 +44,10 @@
 		SELECT * FROM
 		user where username=#{username}
 	</select>
+	<select id="getUserByNameAndPassword" resultType="list"  resultMap="resultUser">
+		SELECT * FROM
+		user where username=#{username} and password=#{password}
+	</select>
 	<!--<select id="findById" resultType="list" resultMap="resultUser">
 		SELECT
 		userName FROM

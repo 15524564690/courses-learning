@@ -11,5 +11,7 @@ public interface UserService {
 	boolean regist(User user);
 	boolean deleteUser(String id);
 	boolean updateUser(User user);
+	boolean check(String username,String password);
+	List<User> getUserByNameAndPassword(String  username,String password);
 
 }

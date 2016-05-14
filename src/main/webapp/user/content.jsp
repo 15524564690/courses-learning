@@ -18,7 +18,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="../home.jsp">资源网</a>
+            <a class="navbar-brand" href="/user/home.jsp">资源网</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav" id="mytab">
@@ -107,8 +107,8 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <h3 class="class-introduce">课程简介 <span class="label label-default">New</span></h3>
-					<c:forEach items="${ classs }" var="classs">
-					<li><p>${ classs.describes }</p> </li>
+					<c:forEach items="${ clazzList }" var="calzz">
+					<li><p>${ calzz.classdes }</p> </li>
 					</c:forEach>
          <!--    <p>本课程深入的讲解了C语言中，预处理是怎么回事，结构体和公用体又是如何使用及区别的，动态数据结构体是什么，位运算的秘密。通过本课程的学习将进一步的理解C语言。</p> -->
         </div>
@@ -121,11 +121,15 @@
                 </div>
                 <div class="panel-body">
                     <ul>
-                    <c:forEach items="${ content }" var="content">
+                    <c:forEach items="${ chapterList }" var="chapter">
                         <!-- <li class="active"> -->
                         <li>
-                            ${ content.chapter }&nbsp;&nbsp;
-                            ${ content.chapterDescribe }
+                            ${ chapter.chaptername} &nbsp;&nbsp; ${chapter.chapterdes}
+                        <c:forEach items="${ titleList }" var="title">
+                            <c:if test="${chapter.id == title.chapterid}">
+                                <li>${title.titledes}</li>
+                            </c:if>
+                        </c:forEach>
                         </li>
                         </c:forEach>
                     </ul>

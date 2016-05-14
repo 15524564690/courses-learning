@@ -13,6 +13,8 @@ public interface UserMapper {
 	boolean createUser(User user);
 	boolean updateUser(User user);
 	boolean deleteUser(String id);
+	List<User> getUserByNameAndPassword(String username,String password);
+	boolean check(String username,String password);
 	List<User> getUserByName(String username);
 	List<User> getUserById(String id);
 }

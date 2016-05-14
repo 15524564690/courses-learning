@@ -2,6 +2,8 @@ package com.bin.myspring.service.impl;
 
 import java.util.List;
 
+import com.bin.myspring.entity.ResModel;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -73,6 +75,24 @@ public class UserServiceImpl implements UserService{
 
     public boolean updateUser(User user) {
         return userMapper.updateUser(user);
+    }
+
+    public boolean check(String username, String password) {
+        return userMapper.check(username,password);
+    }
+
+    public List<User> getUserByNameAndPassword(String username, String password) {
+
+        try {
+            if (userMapper.getUserByNameAndPassword(username,password).size()>0){
+                return userMapper.getUserByNameAndPassword(username,password);
+            }else {
+                return null;
+            }
+        }catch (Exception e){
+            System.out.print(e);
+        }
+        return null;
     }
 
     public List<User> getOneUser() {

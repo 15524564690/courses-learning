@@ -1,17 +1,18 @@
 package com.bin.myspring.controller;
 
-import com.bin.myspring.entity.Direction;
-import com.bin.myspring.entity.ResModel;
-import com.bin.myspring.entity.Test;
-import com.bin.myspring.entity.User;
+import com.bin.myspring.entity.*;
 import com.bin.myspring.service.UserService;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.support.HttpRequestHandlerServlet;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +34,8 @@ public class UserController {
         return new ResModel(code, message, userList);
     }
     @RequestMapping(value = "login")
-    public ResModel userLogin(@RequestParam("username") String username,@RequestParam("password") String password) {
+    public ResModel userLogin(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
+            request.getSession().setAttribute("username",username);
         boolean loginState = false;
         String code = "200";
         String message = "";
@@ -78,7 +80,6 @@ public class UserController {
     }
     @RequestMapping(value = "updateUser", method = RequestMethod.POST)
     public ResModel updateUserById(User user) {
-        System.out.print(user.getPassword()+user.getCreatetime());
         boolean state =userService.updateUser(user);
         String code = "200";
         String message = "";
@@ -90,4 +91,10 @@ public class UserController {
         }
         return new ResModel(code, message, state);
     }
+    @RequestMapping(value = "loginoff")
+    public ModelAndView userLogin(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return new ModelAndView("/mag/login.jsp");
+    }
+
 }
