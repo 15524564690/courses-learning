@@ -1,4 +1,8 @@
 // 模态框登录
+var categoryId = '',
+    directionId = '',
+    className = '';
+
 $(function () {
     var categoryDefered = Q.defer(),
         directionDefered = Q.defer();
@@ -11,7 +15,7 @@ $(function () {
         success: function (categoryList) {
             //  console.log(JSON.stringify(categoryList));
             for (var i = 0; i < categoryList.data.length; i++) {
-                $("#category").append("<li><a>" + categoryList.data[i].categoryname + "</a></li>");
+                $("#category").append("<li id='"+categoryList.data[i].id+"'><a>" + categoryList.data[i].categoryname + "</a></li>");
             }
             categoryDefered.resolve(categoryList);
         },
@@ -26,7 +30,7 @@ $(function () {
         success: function (directionList) {
             // console.log(JSON.stringify(directionList));
             for (var i = 0; i < directionList.data.length; i++) {
-                $("#direction").append("<li><a>" + directionList.data[i].directionname + "</a></li>");
+                $("#direction").append("<li id='"+directionList.data[i].id+"'><a>" + directionList.data[i].directionname + "</a></li>");
             }
             directionDefered.resolve(directionList);
         },
@@ -40,6 +44,14 @@ $(function () {
         $(this).tab("show");
     })
 
+    $("#searchInput").change(function () {
+        className = $(this).val();
+    });
+
+    $("#searchBtn").click(function () {
+        getClass();
+    });
+
     $(function () {
         $("#login-btn").click(function () {
             $("#exampleModal").modal("show");
@@ -50,7 +62,8 @@ $(function () {
         $("#category li").click(function () {
             $("#category li").removeClass("active");
             $(this).addClass("active");
-
+            categoryId = $(this).attr('id') || '';
+            getClass();
         });
     });
 
@@ -58,6 +71,8 @@ $(function () {
         $("#direction li").click(function () {
             $("#direction li").removeClass("active");
             $(this).addClass("active");
+            directionId = $(this).attr('id') || '';
+            getClass();
         });
     });
 });
@@ -67,9 +82,14 @@ function getClass(){
         type: "GET",
         url: "/action/clazz",
         dataType: "json",
-        data:{categoryId:"",directionId:"",className:""},
+        data:{
+            categoryId: categoryId,
+            directionId: directionId,
+            className: className
+        },
         success: function (classList) {
             //  console.log(JSON.stringify(categoryList));
+            var html = "";
             for (var i = 0; i < classList.data.length; i++) {
             //
             //<div  class="col-xs-6 col-md-3">
@@ -79,13 +99,14 @@ function getClass(){
             //        </a>
             //        </div>
 
-                $("#thumbnail").append(
+                html +=
                 "<div class='col-xs-6 col-md-3'>"+
                     "<a href='/action/chapter/getContent?id="+
                 classList.data[i].id+"' class='thumbnail'>" +
                     "<img src= '"+classList.data[i].pictureul+"' alt='"+classList.data[i].classname+ "' />"+
-                    "<h5>"+classList.data[i].classname+"</h5></a></div>");
+                    "<h5>"+classList.data[i].classname+"</h5></a></div>";
             }
+            $("#thumbnail").html(html);
             //categoryDefered.resolve(categoryList);
         },
         error: function (e) {

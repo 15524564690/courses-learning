@@ -28,9 +28,9 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class=""><form class="navbar-form" role="search">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="搜索">
+                                <input type="text" class="form-control" placeholder="搜索" id="searchInput">
                             </div>
-                            <button type="submit" class="btn btn-default">搜索</button>
+                            <button type="button" class="btn btn-default" id="searchBtn">搜索</button>
                         </form></li>
                     <li><a class="btn btn-default" data-whatever="@mdo" id="login-btn">登录</a></li>
                     <li><a class="btn btn-default" data-whatever="@mdo" id="login-btn">注册</a></li>
