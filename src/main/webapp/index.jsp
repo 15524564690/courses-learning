@@ -35,7 +35,7 @@
                     </form>
                 </li>
                 <li>
-                    <a  class="btn btn-default" style="background-color: #333; border: none" data-whatever="@mdo" id="login-btn">
+                    <a class="btn btn-default" style="background-color: #333; border: none" data-whatever="@mdo" id="login-btn">
                         登录
                     </a>
                 </li>
@@ -106,6 +106,28 @@
                 console.log();
             }
         });
+
+        $('#login').click(function () {
+            var username = $('#username').val();
+            var password = $('#password').val();
+            $.ajax({
+                type:"GET",
+                url:"/action/user/login",
+                data: {
+                    username: username,
+                    password: password
+                },
+                dataType:"json",
+                success:function(userList){
+                    console.log(JSON.stringify(userList));
+
+                },
+                error:function(e) {
+                    alert("出错："+e);
+                    console.log();
+                }
+            });
+        });
     });
 
 
@@ -150,7 +172,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-default" data-dismiss="modal">登录</button>
+                <button type="submit" class="btn btn-default" data-dismiss="modal" id="login">登录</button>
                 <button type="reset" class="btn btn-primary" data-dismiss="modal">取消</button>
             </div>
         </div>

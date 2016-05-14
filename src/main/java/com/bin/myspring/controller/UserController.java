@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +35,8 @@ public class UserController {
         return new ResModel(code, message, userList);
     }
     @RequestMapping(value = "login")
-    public ResModel userLogin(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) {
-            request.getSession().setAttribute("username",username);
+    public ResModel userLogin(HttpSession session, @RequestParam("username") String username, @RequestParam("password") String password) {
+            session.setAttribute("username",username);
         boolean loginState = false;
         String code = "200";
         String message = "";

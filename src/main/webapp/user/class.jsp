@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page isELIgnored="false"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head lang="en">
@@ -13,6 +13,49 @@
     <script src="${basePath }js/bootstrap.min.js"></script>
     <script src="${basePath }js/q.js"></script>
     <script src="${basePath }js/class.js"></script>
+    <script>
+        $(function () {
+            $('#login').click(function () {
+                var username = $('#username').val();
+                var password = $('#password').val();
+                $.ajax({
+                    type:"GET",
+                    url:"/action/user/login",
+                    data: {
+                        username: username,
+                        password: password
+                    },
+                    dataType:"json",
+                    success:function(result){
+                        alert(result.message);
+                        if (result.data) {
+                            location.reload();
+                        }
+
+                    },
+                    error:function(e) {
+                        alert("出错："+e);
+                        console.log();
+                    }
+                });
+            });
+
+            $('#login-off').click(function () {
+                $.ajax({
+                    type:"GET",
+                    url:"/action/user/loginoff",
+                    dataType:"html",
+                    success:function(result){
+                        location.reload();
+                    },
+                    error:function(e) {
+                        alert("出错："+e);
+                        console.log();
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <div class="container">
@@ -28,12 +71,18 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li class=""><form class="navbar-form" role="search">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="搜索" id="searchInput">
+                                <input type="text" class="form-control" placeholder="搜索" id="searchInput" value="">
                             </div>
                             <button type="button" class="btn btn-default" id="searchBtn">搜索</button>
                         </form></li>
-                    <li><a class="btn btn-default" data-whatever="@mdo" id="login-btn">登录</a></li>
-                    <li><a class="btn btn-default" data-whatever="@mdo" id="login-btn">注册</a></li>
+                    <c:if test="${username != null}">
+                        <li style="color:#fff; padding: 10px 0;font-size: 22px;">${username }</li>
+                        <li><a class="btn btn-default" data-whatever="@mdo" id="login-off">退出</a></li>
+                    </c:if>
+                    <c:if test="${username == null}">
+                        <li><a class="btn btn-default" data-whatever="@mdo" id="login-btn">登录</a></li>
+                        <li><a class="btn btn-default" data-whatever="@mdo" id="regist-btn">注册</a></li>
+                    </c:if>
                 </ul>
             </div>
         </div>
@@ -75,7 +124,7 @@
     <div id="thumbnail" class="row">
 
     </div>
-    
+
     <!--登陆-->
     <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -100,7 +149,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-default" data-dismiss="modal">登录</button>
+                    <button type="submit" class="btn btn-default" data-dismiss="modal" id="login">登录</button>
                     <button type="reset" class="btn btn-primary" data-dismiss="modal">取消</button>
                 </div>
             </div>
